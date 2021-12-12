@@ -23,7 +23,9 @@
       "adaptiveIcon": {
         "foregroundImage": "./app/assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package":"com.donewithit.dnyaneshwar",
+      "versionCode":1
     },
     "web": {
       "favicon": "./app/assets/adaptive-icon.png"

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Button,
   Platform,
@@ -10,7 +10,9 @@ import {
   View,
   Dimensions,
   TextInput,
+  Image,
 } from "react-native";
+import * as ImagePicker from "expo-image-picker";
 
 import Screen from "./app/screens/Screen";
 
@@ -19,7 +21,22 @@ import NewListingScreen from "./app/screens/NewListingScreen";
 import Messages from "./app/screens/Messages";
 
 export default function App() {
-  return <NewListingScreen />;
+  useEffect(() => {
+    const requestPermission = async () => {
+      const result = await ImagePicker.requestCameraPermissionsAsync();
+      console.log(result.granted);
+      if (!result.granted) {
+        alert("You Need to Give Image Permission");
+      }
+    };
+    requestPermission();
+  }, []);
+
+  return (
+    <Screen>
+      <NewListingScreen />
+    </Screen>
+  );
 }
 
 const styles = StyleSheet.create({
