@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import {
   Button,
   Platform,
@@ -12,30 +12,17 @@ import {
   TextInput,
   Image,
 } from "react-native";
-import * as ImagePicker from "expo-image-picker";
-
-import Screen from "./app/screens/Screen";
-
-import LoginScreen from "./app/screens/LoginScreen";
-import NewListingScreen from "./app/screens/NewListingScreen";
-import Messages from "./app/screens/Messages";
+import { NavigationContainer } from "@react-navigation/native";
+import AuthNavigator from "./app/navigation/AuthNavigator";
+import TabNavgator from "./app/navigation/AppNavigator";
 
 export default function App() {
-  useEffect(() => {
-    const requestPermission = async () => {
-      const result = await ImagePicker.requestCameraPermissionsAsync();
-      console.log(result.granted);
-      if (!result.granted) {
-        alert("You Need to Give Image Permission");
-      }
-    };
-    requestPermission();
-  }, []);
-
   return (
-    <Screen>
-      <NewListingScreen />
-    </Screen>
+    <>
+      <NavigationContainer>
+        <TabNavgator />
+      </NavigationContainer>
+    </>
   );
 }
 

@@ -9,11 +9,22 @@ import ListItemSepetator from "../components/lists/ListItemSeperator";
 
 const menuItems = [
   {
+    title: "Mosh Hemadani",
+    image: require("../assets/mosh.jpg"),
+    subTitle: "dpw4112001@yahoo.com",
+    icon: {
+      name: "account",
+      backgroundColor: colors.primary,
+    },
+    targetScreen: "Messages",
+  },
+  {
     title: "My Listings",
     icon: {
       name: "format-list-bulleted",
       backgroundColor: colors.primary,
     },
+    targetScreen: "Messages",
   },
   {
     title: "My Messages",
@@ -21,20 +32,21 @@ const menuItems = [
       name: "email",
       backgroundColor: colors.secondary,
     },
+    targetScreen: "Messages",
+  },
+  {
+    title: "Log Out",
+    icon: {
+      name: "logout",
+      backgroundColor: "grey",
+    },
+    targetScreen: "Listings",
   },
 ];
 
-export default function AccountScreen() {
+export default function AccountScreen({ navigation }) {
   return (
     <Screen style={styles.screen}>
-      <View style={styles.container}>
-        <ListItem
-          title="Mosh Hemadani"
-          subTitle="dpw4112001@yahoo.com"
-          image={require("../assets/mosh.jpg")}
-        />
-      </View>
-
       <View style={styles.container}>
         <FlatList
           data={menuItems}
@@ -42,22 +54,20 @@ export default function AccountScreen() {
           renderItem={({ item }) => (
             <ListItem
               title={item.title}
+              image={item.image}
+              subTitle={item.subTitle}
               IconComponent={
                 <Icon
                   name={item.icon.name}
                   backgroundColor={item.icon.backgroundColor}
                 />
               }
+              onPress={() => navigation.navigate(item.targetScreen)}
             />
           )}
           ItemSeparatorComponent={ListItemSepetator}
         />
       </View>
-
-      <ListItem
-        title="Log Out"
-        IconComponent={<Icon name="logout" backgroundColor="#ffe66d" />}
-      />
     </Screen>
   );
 }
@@ -67,6 +77,7 @@ const styles = StyleSheet.create({
     marginVertical: 20,
   },
   screen: {
-    backgroundColor: colors.pink,
+    marginTop: 10,
+    backgroundColor: colors.lightgrey,
   },
 });

@@ -13,6 +13,8 @@ import ImageInputList from "../components/ImageInputList";
 import * as Yup from "yup";
 import FormImagePicker from "../components/forms/FormImagePicker";
 import useLocation from "../hooks/useLocation";
+import ListingsApi from "../apis/listings";
+import UploadScreen from "./UploadScreen";
 
 const validationSchema = Yup.object().shape({
   images: Yup.array().min(1, "Select at least one Image"),
@@ -21,8 +23,31 @@ const validationSchema = Yup.object().shape({
 export default function NewListingScreen() {
   const location = useLocation();
 
+  const [upload, setUpload] = useState(false);
+  const [progress, setProgress] = useState(0);
+
+  const handleSubmit = async (listing, { resetForm }) => {
+    setProgress(0);
+    setUpload(true);
+
+    const result = await ListingsApi.addListings(
+      { ...listing, location },
+      (progress) => setProgress(progress)
+    );
+
+    if (!result.ok) {
+      setUpload(false);
+      return alert("Couldnot Save Listing");
+    }
+    resetForm();
+  };
   return (
-    <Screen style={{ padding: 10 }}>
+    <Screen style={{ padding: 10, marginTop: 10 }}>
+      <UploadScreen
+        progress={progress}
+        visible={upload}
+        onDone={() => setUpload(false)}
+      />
       <Formik
         initialValues={{
           title: "",
@@ -32,7 +57,7 @@ export default function NewListingScreen() {
           images: [],
         }}
         validationSchema={validationSchema}
-        onSubmit={(values) => console.log(values)}
+        onSubmit={handleSubmit}
       >
         {() => (
           <>

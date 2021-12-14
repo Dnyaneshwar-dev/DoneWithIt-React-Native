@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import {
   View,
   Text,
@@ -14,6 +14,16 @@ import * as ImagePicker from "expo-image-picker";
 import colors from "../../config/colors";
 
 export default function AppImagePicker({ imageUri, onChangeImage }) {
+  useEffect(() => {
+    const requestPermission = async () => {
+      const result = await ImagePicker.requestCameraPermissionsAsync();
+      console.log(result.granted);
+      if (!result.granted) {
+        alert("You Need to Give Image Permission");
+      }
+    };
+    requestPermission();
+  }, []);
   const handlePress = () => {
     if (!imageUri) {
       selectImage();

@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text, StyleSheet, Image } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-export default function ViewImageScreen() {
+export default function ImageDetails() {
   return (
     <View style={styles.container}>
       <View style={styles.closeIcon}>

@@ -23,19 +23,19 @@ export default function ListItem({
     <Swipeable renderRightActions={renderRightActions}>
       <TouchableHighlight underlayColor={"grey"} onPress={onPress}>
         <View style={styles.container}>
-          {IconComponent}
+          {!image && IconComponent}
           {image && <Image source={image} style={styles.image} />}
           <View style={styles.details}>
-            <Text style={styles.title} numberOfLines={1}>
-              {title}
-            </Text>
-            {subTitle && <Text numberOfLines={2}>{subTitle}</Text>}
+            <Text style={styles.title}>{title}</Text>
+            {subTitle && <Text>{subTitle}</Text>}
           </View>
-          <MaterialCommunityIcons
-            name="chevron-right"
-            size={25}
-            color={"grey"}
-          />
+          {!image && (
+            <MaterialCommunityIcons
+              name="chevron-right"
+              size={25}
+              color={"grey"}
+            />
+          )}
         </View>
       </TouchableHighlight>
     </Swipeable>
@@ -51,8 +51,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   image: {
-    width: 70,
-    height: 70,
+    width: 60,
+    height: 60,
     borderRadius: 35,
     marginRight: 10,
   },

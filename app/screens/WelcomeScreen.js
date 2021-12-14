@@ -10,7 +10,7 @@ import {
 
 import AppButton from "../components/buttons/AppButton";
 
-export default function Welcome() {
+export default function Welcome({ navigation }) {
   return (
     <ImageBackground
       blurRadius={Platform.OS === "android" ? 2 : 10}
@@ -22,8 +22,16 @@ export default function Welcome() {
         <Text style={styles.tagline}>Sell What You Don't Need</Text>
       </View>
       <View style={styles.buttonContainer}>
-        <AppButton title="Login" color="primary" />
-        <AppButton title="Register" color="secondary" />
+        <AppButton
+          title="Login"
+          color="primary"
+          onPress={() => navigation.navigate("Login")}
+        />
+        <AppButton
+          title="Register"
+          color="secondary"
+          onPress={() => navigation.navigate("Register")}
+        />
       </View>
     </ImageBackground>
   );
