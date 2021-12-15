@@ -6,16 +6,28 @@ import {
   TouchableHighlight,
   Image,
 } from "react-native";
+import { TouchableWithoutFeedback } from "react-native";
 
 import colors from "../../../config/colors";
 
-export default function AccountItem({ title, subTitle, image }) {
+export default function AccountItem({
+  title,
+  subTitle,
+  image,
+  onPress,
+  IconComponent,
+}) {
   return (
-    <View style={styles.container}>
-      {image && <Image source={image} style={styles.image} />}
-      <Text style={styles.title}>{title}</Text>
-      {subTitle && <Text>{subTitle}</Text>}
-    </View>
+    <TouchableWithoutFeedback onPress={onPress}>
+      <View style={styles.container}>
+        {IconComponent}
+        {image && <Image source={image} style={styles.image} />}
+        <View style={styles.details}>
+          <Text style={styles.title}>{title}</Text>
+          {subTitle && <Text>{subTitle}</Text>}
+        </View>
+      </View>
+    </TouchableWithoutFeedback>
   );
 }
 
@@ -23,7 +35,7 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
     backgroundColor: colors.white,
-    padding: 5,
+    padding: 15,
     alignItems: "center",
   },
   image: {

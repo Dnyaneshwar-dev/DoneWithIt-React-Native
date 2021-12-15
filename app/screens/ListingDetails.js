@@ -9,7 +9,11 @@ export default function ListingDetails({ route }) {
   const listing = route.params;
   return (
     <View>
-      <Image source={listing.image} style={styles.image} tint={"light"} />
+      <Image
+        source={{ uri: listing.images[0].url }}
+        style={styles.image}
+        tint={"light"}
+      />
       <View style={styles.detailsContainer}>
         <Text style={styles.title}>{listing.title}</Text>
         <Text style={styles.price}>{listing.price}</Text>

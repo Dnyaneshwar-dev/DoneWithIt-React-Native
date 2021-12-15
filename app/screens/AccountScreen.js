@@ -6,18 +6,10 @@ import Screen from "./Screen";
 import colors from "../../config/colors";
 import Icon from "../components/Icon";
 import ListItemSepetator from "../components/lists/ListItemSeperator";
+import AccountItem from "../components/lists/AccountItem";
+import useAuth from "../auth/useAuth";
 
 const menuItems = [
-  {
-    title: "Mosh Hemadani",
-    image: require("../assets/mosh.jpg"),
-    subTitle: "dpw4112001@yahoo.com",
-    icon: {
-      name: "account",
-      backgroundColor: colors.primary,
-    },
-    targetScreen: "Messages",
-  },
   {
     title: "My Listings",
     icon: {
@@ -34,19 +26,19 @@ const menuItems = [
     },
     targetScreen: "Messages",
   },
-  {
-    title: "Log Out",
-    icon: {
-      name: "logout",
-      backgroundColor: "grey",
-    },
-    targetScreen: "Listings",
-  },
 ];
 
 export default function AccountScreen({ navigation }) {
+  const { logOut } = useAuth();
   return (
     <Screen style={styles.screen}>
+      <View style={styles.container}>
+        <AccountItem
+          image={require("../assets/mosh.jpg")}
+          title="Mosh Hamedani"
+          description="5 listings"
+        />
+      </View>
       <View style={styles.container}>
         <FlatList
           data={menuItems}
@@ -66,6 +58,13 @@ export default function AccountScreen({ navigation }) {
             />
           )}
           ItemSeparatorComponent={ListItemSepetator}
+        />
+      </View>
+      <View style={styles.container}>
+        <AccountItem
+          title="Log Out"
+          IconComponent={<Icon name="logout" backgroundColor="grey" />}
+          onPress={logOut}
         />
       </View>
     </Screen>

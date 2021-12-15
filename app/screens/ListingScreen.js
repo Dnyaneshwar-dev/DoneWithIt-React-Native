@@ -8,6 +8,7 @@ import ListingsApi from "../apis/listings";
 import AppButton from "../components/buttons/AppButton";
 import ActivityIndicator from "../components/ActivityIndicator";
 import useApi from "../hooks/useApi";
+import cache from "../utility/cache";
 
 // const listings = [
 //   {
@@ -43,8 +44,16 @@ export default function ListingScreen({ navigation }) {
     loading,
     error,
   } = useApi(ListingsApi.getListings);
+  const getCache = async (url) => {
+    try {
+      const data = await cache.get(url);
+      console.log(data);
+    } catch (error) {}
+  };
   useEffect(() => {
     loadListings();
+
+    //getCache("/listings");
   }, []);
   return (
     <Screen style={styles.screen}>
